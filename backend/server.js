@@ -47,12 +47,25 @@ app.use(express.json());
  * This intentionally does not require MongoDB so we can still
  * check whether the Vercel server itself is alive.
  */
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    time: new Date().toISOString(),
-    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-  });
+app.get('/api/health', async (req, res) => {
+  try {
+    await ensureDB();
+
+    res.json({
+      status: 'ok',
+      time: new Date().toISOString(),
+      database: 'connected',
+    });
+  } catch (err) {
+    console.error(`Health check MongoDB connection failed: ${err.message}`);
+
+    res.status(503).json({
+      status: 'error',
+      time: new Date().toISOString(),
+      database: 'disconnected',
+      error: err.message,
+    });
+  }
 });
 
 /*
