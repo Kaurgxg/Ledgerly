@@ -1,132 +1,425 @@
-# Ledgerly — Financial Habit Builder & Wealth Growth Tracker
+# Ledgerly — Personal Finance Management & Analytics Platform
 
-A full MERN-stack rebuild of the Ledgerly prototype: **React + Tailwind CSS** frontend, **Node.js + Express** backend, **MongoDB (Mongoose)** database. This replaces the earlier single-file HTML prototype — every feature from that version has an equivalent real API endpoint and React page. The only thing left to do is point `MONGO_URI` at your own database.
+Ledgerly is a full-stack personal finance management platform that helps users manage their income, expenses, saving goals, financial habits, and overall financial activity from a single dashboard.
 
-## Tech stack
+The platform also includes a dedicated **Admin Portal** for user management, feedback handling, and platform usage analytics.
 
-| Layer | Tech |
+---
+
+## 🚀 Live Demo
+
+**Frontend:**  
+https://ledgerly-gg.vercel.app
+
+**Backend API:**  
+https://ledgerly-one-alpha.vercel.app
+
+**GitHub Repository:**  
+https://github.com/Kaurgxg/Ledgerly
+
+---
+
+## ✨ Features
+
+### 👤 User Portal
+
+- Secure user registration and login
+- Financial dashboard with overall financial summary
+- Add and manage income records
+- Add and manage expense records
+- Track cash flow and savings rate
+- Create and track saving goals
+- Add contributions towards saving goals
+- Create and track financial habits
+- Habit check-ins and progress tracking
+- Financial analytics
+- Submit feedback and complaints
+- View admin responses
+- Profile management
+- Change account password
+- Forgot-password and email-based password reset
+
+### 🛡️ Admin Portal
+
+- Separate admin authentication and portal
+- View and manage registered users
+- Grant or revoke admin privileges
+- Monitor platform usage
+- View active users and engagement information
+- Track habit check-ins
+- View signup trends
+- View daily platform activity
+- View most active users
+- Manage user feedback and complaints
+- Reply to and resolve feedback
+- Reopen resolved feedback
+- Generate platform analytics reports
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
 |---|---|
-| Frontend | React 18, React Router, Tailwind CSS, Recharts, Axios, Vite |
-| Backend | Node.js, Express.js, JSON Web Tokens, bcryptjs |
-| Database | MongoDB via Mongoose (works with local MongoDB or MongoDB Atlas) |
-| Deployment target | Backend → Render / AWS. Frontend → Vercel / Render static site. |
+| Frontend | React, Vite, Tailwind CSS, React Router |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT, bcryptjs |
+| API Communication | Axios, REST APIs |
+| Charts & Analytics | Recharts |
+| Version Control | Git, GitHub |
+| Deployment | Vercel |
 
-## Project structure
+---
 
-```
-ledgerly/
+## 📁 Project Structure
+
+```text
+Ledgerly/
+│
 ├── backend/
-│   ├── config/db.js            # Mongoose connection
-│   ├── models/                 # User, Income, Expense, Habit, Goal, Investment, Feedback
-│   ├── middleware/              # JWT auth (protect/adminOnly), error handler
-│   ├── controllers/             # Business logic per module
-│   ├── routes/                  # Express routers, mounted in server.js
-│   ├── server.js                # App entry point + admin auto-seed
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── incomeController.js
+│   │   ├── expenseController.js
+│   │   ├── habitController.js
+│   │   ├── goalController.js
+│   │   ├── feedbackController.js
+│   │   ├── adminController.js
+│   │   └── reportController.js
+│   │
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Income.js
+│   │   ├── Expense.js
+│   │   ├── Habit.js
+│   │   ├── Goal.js
+│   │   └── Feedback.js
+│   │
+│   ├── middleware/
+│   │   └── auth.js
+│   │
+│   ├── routes/
+│   │
+│   ├── server.js
 │   └── .env.example
+│
 └── frontend/
     ├── src/
-    │   ├── api/axios.js          # Axios instance with JWT interceptor
-    │   ├── context/AuthContext.jsx
-    │   ├── components/           # Sidebar, PageHead, KpiCard, AuthShell, ProtectedRoute
-    │   ├── layouts/               # UserLayout, AdminLayout (separate sidebars/shells)
-    │   ├── pages/auth/            # Login, Register (portal toggle: User vs Admin)
-    │   ├── pages/user/             # Dashboard, Expenses, Habits, Goals, Analytics, Feedback, Profile
-    │   ├── pages/admin/             # AdminUsers, AdminUsage, AdminFeedback, AdminReport
-    │   └── App.jsx                  # React Router route table
-    └── package.json
+    │   ├── api/
+    │   ├── components/
+    │   ├── context/
+    │   ├── layouts/
+    │   ├── pages/
+    │   │   ├── auth/
+    │   │   ├── user/
+    │   │   └── admin/
+    │   └── App.jsx
+    │
+    ├── package.json
+    └── vite.config.js
 ```
 
-## 1. Set up MongoDB
+---
 
-Pick one:
+## 🖥️ Application Modules
 
-- **Local MongoDB**: install MongoDB Community Server, then use `mongodb://127.0.0.1:27017/ledgerly`.
-- **MongoDB Atlas** (recommended for deployment): create a free cluster at mongodb.com/atlas, create a database user, allow your IP (or `0.0.0.0/0` for quick testing), and copy the connection string — it looks like:
-  ```
-  mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/ledgerly
-  ```
+### 📊 Dashboard
 
-The API only starts after this URI is configured and MongoDB is reachable. Its connection timeout is 10 seconds, and it reports the connection failure clearly rather than serving requests without a database.
+The user dashboard provides an overview of financial activity, including:
 
-## 2. Backend setup
+- Total income
+- Total expenses
+- Savings rate
+- Cash flow
+- Recent financial activity
+- Habit progress
+- Saving goal progress
+
+### 💰 Income & Expenses
+
+Users can add, view, and delete financial records to maintain an organized record of their income and spending.
+
+### 🎯 Saving Goals
+
+Users can create financial goals, add contributions, and track their progress towards each goal.
+
+### 🔄 Habit Tracker
+
+Users can create financial habits and record their progress through regular check-ins.
+
+### 📈 Analytics
+
+Ledgerly provides visual analytics to help users understand their financial activity and progress.
+
+### 💬 Feedback System
+
+Users can submit feedback or complaints to administrators.
+
+Administrators can:
+
+- Review feedback
+- Reply to users
+- Resolve feedback
+- Reopen resolved feedback
+
+### 🛡️ Admin Analytics
+
+Administrators can monitor platform activity through:
+
+- Active users
+- User engagement
+- Habit check-ins
+- Weekly signups
+- Daily activity
+- Most active users
+- Platform usage statistics
+
+---
+
+## 🔐 Authentication & Security
+
+Ledgerly uses several security mechanisms to protect user accounts and API resources:
+
+- **JWT** for authentication
+- **bcryptjs** for password hashing
+- Role-based authorization for User and Admin accounts
+- Protected API routes
+- Separate User and Admin interfaces
+- Server-side permission checks
+- Password reset functionality
+- Environment variables for sensitive configuration
+
+Sensitive configuration such as database credentials and JWT secrets are stored using environment variables and are not committed to the repository.
+
+---
+
+## ⚙️ Local Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Kaurgxg/Ledgerly.git
+cd Ledgerly
+```
+
+### 2. Backend Setup
 
 ```bash
 cd backend
-cp .env.example .env
-# edit .env and set MONGO_URI to your connection string above,
-# and set JWT_SECRET to a long random string
 npm install
-npm run dev        # starts on http://localhost:5000 with nodemon
 ```
 
-On first boot the server automatically creates a demo admin account (if no admin exists yet) using `SEED_ADMIN_USERNAME` / `SEED_ADMIN_PASSWORD` from `.env` (defaults: `admin` / `admin123`).
+Create a `.env` file inside the `backend` directory:
 
-`ADMIN_ACCESS_CODE` in `.env` is the code required on the Admin Portal's registration form — change it before deploying publicly.
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+ADMIN_ACCESS_CODE=your_admin_access_code
+CLIENT_URL=http://localhost:5173
+```
 
-## 3. Frontend setup
+Start the backend:
+
+```bash
+npm run dev
+```
+
+The backend will run on:
+
+```text
+http://localhost:5000
+```
+
+### 3. Frontend Setup
+
+Open another terminal:
 
 ```bash
 cd frontend
 npm install
-npm run dev         # starts on http://localhost:5173
+npm run dev
 ```
 
-The Vite dev server proxies `/api/*` requests to `http://localhost:5000` (configured in `vite.config.js`), so just run both servers side by side during development. For a separately deployed API, copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_URL` to the deployed API's `/api` URL. Set backend `CLIENT_URL` to the frontend URL (multiple comma-separated origins are supported).
+The frontend will run on:
 
-## 4. Using the app
+```text
+http://localhost:5173
+```
 
-- Visit `http://localhost:5173/register` to create a **User Portal** account, or toggle to **Admin Portal** and register with the demo code `LEDGER-ADMIN` (or log in with the seeded `admin` / `admin123`).
-- User and Admin accounts land in completely separate parts of the app (`/dashboard...` vs `/admin/...`) with their own sidebars — logging into the wrong portal for an account is rejected with a clear message telling you to switch portals.
+For a separately deployed backend, configure:
 
-## API overview
+```env
+VITE_API_URL=your_backend_api_url/api
+```
 
-All routes are prefixed with `/api`. Protected routes require `Authorization: Bearer <token>`.
+---
 
-| Method | Route | Description |
+## 🔗 API Overview
+
+All API routes are prefixed with `/api`.
+
+Protected routes require:
+
+```text
+Authorization: Bearer <token>
+```
+
+### Authentication
+
+| Method | Endpoint | Description |
 |---|---|---|
-| POST | `/auth/register` | Create a user or admin account |
-| POST | `/auth/login` | Log in (body includes `portal: 'user'\|'admin'`) |
-| GET | `/auth/me` | Current user |
-| PUT | `/profile` | Update name/email |
+| POST | `/auth/register` | Register a user/admin |
+| POST | `/auth/login` | Login |
+| POST | `/auth/forgot-password` | Request password reset |
+| PUT | `/auth/reset-password/:token` | Reset password |
+| GET | `/auth/me` | Get current user |
+
+### Profile
+
+| Method | Endpoint | Description |
+|---|---|---|
+| PUT | `/profile` | Update profile |
 | PUT | `/profile/password` | Change password |
-| DELETE | `/profile` | Delete own account (cascades) |
-| GET/POST | `/income` | List / add income records |
-| DELETE | `/income/:id` | Delete an income record |
-| GET/POST | `/expenses` | List / add expense records |
-| DELETE | `/expenses/:id` | Delete an expense record |
-| GET/POST | `/habits` | List / add habits |
-| PATCH | `/habits/:id/toggle` | Mark/unmark done for current period |
-| DELETE | `/habits/:id` | Delete a habit |
-| GET/POST | `/goals` | List / add savings goals |
-| POST | `/goals/:id/contribute` | Add a contribution to a goal |
-| DELETE | `/goals/:id` | Delete a goal |
-| GET/POST | `/investments` | List / add investments & assets |
-| DELETE | `/investments/:id` | Delete an investment |
-| GET/POST | `/feedback` | List (own, or all if admin) / submit feedback |
-| PATCH | `/feedback/:id/reply` | Admin: reply and optionally resolve |
-| PATCH | `/feedback/:id/reopen` | Admin: reopen a resolved ticket |
-| GET | `/reports/monthly` | Download current user's monthly spending report (.txt) |
-| GET | `/reports/platform` | Admin: download platform-wide report (.txt) |
-| GET | `/admin/users` | Admin: list all users with activity counts |
-| PATCH | `/admin/users/:id/role` | Admin: promote/demote a user |
-| DELETE | `/admin/users/:id` | Admin: delete a user (cascades) |
-| GET | `/admin/usage` | Admin: signups, daily activity, leaderboard |
+| DELETE | `/profile` | Delete account |
 
-## Deployment
+### Finance
 
-**Backend (Render or AWS):**
-1. Push this repo to GitHub.
-2. On Render: New → Web Service → point at `backend/`, build command `npm install`, start command `npm start`.
-3. Set environment variables (`MONGO_URI`, `JWT_SECRET`, `ADMIN_ACCESS_CODE`, `CLIENT_URL`, etc.) in the Render dashboard.
-4. On AWS, the same app runs on Elastic Beanstalk, an EC2 instance, or as a container on ECS/Fargate — it's a standard Express app with no special requirements.
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/income` | Get income records |
+| POST | `/income` | Add income |
+| DELETE | `/income/:id` | Delete income |
+| GET | `/expenses` | Get expense records |
+| POST | `/expenses` | Add expense |
+| DELETE | `/expenses/:id` | Delete expense |
 
-**Frontend (Vercel or Render static site):**
-1. Import the repo into Vercel, set the root directory to `frontend/`.
-2. Build command `npm run build`, output directory `dist`.
-3. Set an environment variable or edit `vite.config.js`/add an `.env` with `VITE_API_URL` pointing at your deployed backend, and update `src/api/axios.js`'s `baseURL` accordingly (currently it assumes a same-origin `/api` proxy, which works great with Vite's dev proxy but needs an absolute URL — e.g. `https://your-api.onrender.com/api` — once frontend and backend are on different domains in production).
+### Habits & Goals
 
-**Media/cloud storage:** not required for the current feature set (reports are generated and streamed on demand, not stored as files). If you later want to persist generated reports or user-uploaded files, wire in AWS S3 or Cloudinary from the `reportController.js` / a new `uploadController.js`.
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/habits` | Get habits |
+| POST | `/habits` | Create habit |
+| PATCH | `/habits/:id/toggle` | Toggle habit check-in |
+| DELETE | `/habits/:id` | Delete habit |
+| GET | `/goals` | Get saving goals |
+| POST | `/goals` | Create saving goal |
+| POST | `/goals/:id/contribute` | Add goal contribution |
+| DELETE | `/goals/:id` | Delete goal |
 
-## Notes on security
+### Feedback
 
-This version replaces the prototype's client-side password "obfuscation" with real **bcrypt password hashing** and **JWT-based authentication**, and the admin/user separation is enforced server-side (not just hidden in the UI), so it's now much closer to production-ready. Before a real deployment, also consider: rate limiting on `/auth/login`, HTTPS everywhere, rotating `JWT_SECRET`, and tightening `ADMIN_ACCESS_CODE` distribution.
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/feedback` | Get feedback |
+| POST | `/feedback` | Submit feedback |
+| PATCH | `/feedback/:id/reply` | Admin reply/resolve |
+| PATCH | `/feedback/:id/reopen` | Reopen feedback |
+
+### Reports
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/reports/monthly` | Generate user's monthly report |
+| GET | `/reports/platform` | Generate admin platform report |
+
+### Admin
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/admin/users` | Get users |
+| PATCH | `/admin/users/:id/role` | Change user role |
+| DELETE | `/admin/users/:id` | Delete user |
+| GET | `/admin/usage` | Get platform analytics |
+
+---
+
+## ☁️ Deployment
+
+Ledgerly is deployed using **Vercel**.
+
+### Frontend
+
+The React/Vite frontend is deployed as a Vercel project with:
+
+```text
+Root Directory: frontend
+Build Command: npm run build
+Output Directory: dist
+```
+
+### Backend
+
+The Express backend is deployed separately on Vercel with:
+
+```text
+Root Directory: backend
+```
+
+The production backend connects to MongoDB Atlas using environment variables.
+
+---
+
+
+
+## 🎯 Project Highlights
+
+- Full-stack MERN application
+- Responsive user interface
+- Separate User and Admin portals
+- JWT-based authentication
+- Secure password hashing
+- MongoDB database integration
+- RESTful backend APIs
+- Financial and platform analytics
+- Saving goals and habit tracking
+- Feedback management system
+- Admin user management
+- Cloud deployment
+- Production frontend, backend, and database integration
+
+---
+
+## 📚 What I Learned
+
+Through this project, I gained practical experience in:
+
+- Building full-stack applications using the MERN stack
+- Designing and consuming REST APIs
+- MongoDB database design and Mongoose
+- Authentication and authorization
+- Role-based access control
+- Responsive frontend development
+- API and database debugging
+- Cloud deployment
+- Managing environment variables
+- Connecting frontend, backend, and database services in production
+
+---
+
+## 🔮 Future Improvements
+Some possible future enhancements include:
+
+- AI-powered financial insights
+- Personalized spending recommendations
+- Budget prediction
+- Automated financial summaries
+- More advanced financial analytics
+- Automatic expense categorization
+- Notification and reminder system
+- Mobile application
+
+---
+
+## 👨‍💻 Author
+Gurnoor Kaur
+
+Built as an internship project for **Unified Mentor**.
+
+---
+
+## 📄 License
+This project is developed for educational, internship, and portfolio purposes.
